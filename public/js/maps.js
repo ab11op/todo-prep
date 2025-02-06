@@ -8,8 +8,8 @@ class UPSCMaps {
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://i.ibb.co/BGRw2Ks/rivers.jpg',
-                description: 'Major Rivers of India'
+                imageUrl: 'https://raw.githubusercontent.com/craigdsouza/water_resources_india/master/images/river-basins-and-command-areas.PNG',
+                description: 'Major River Basins and Command Areas of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
