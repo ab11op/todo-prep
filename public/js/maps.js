@@ -1,34 +1,35 @@
+
 class UPSCMaps {
     constructor() {
         this.mapModal = new bootstrap.Modal(document.getElementById('map-modal'));
         this.mapContainer = document.getElementById('map-container');
         this.mapButtons = document.querySelectorAll('.map-categories button');
 
-        // Map data with direct image URLs
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b0/India_rivers_map.png',
+                imageUrl: '/images/india_rivers.jpg',
                 description: 'Major Rivers of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/db/India_geographic_map.png',
+                imageUrl: '/images/india_mountains.jpg',
                 description: 'Mountain Ranges of India'
             },
             states: {
                 title: 'States & Union Territories',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7e/India_states_and_union_territories_map.png',
+                imageUrl: '/images/india_states.jpg',
                 description: 'States and Union Territories of India'
             },
             agriculture: {
                 title: 'Agricultural Regions',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/India_agriculture_map.png',
+                imageUrl: '/images/india_agriculture.jpg',
                 description: 'Agricultural Regions of India'
             }
         };
 
         this.bindEvents();
+        this.showMap('rivers'); // Show default map
     }
 
     bindEvents() {
@@ -51,18 +52,28 @@ class UPSCMaps {
         const mapData = this.maps[type];
         if (!mapData) return;
 
-        this.mapContainer.innerHTML = `
-            <div class="map-content">
-                <h4>${mapData.title}</h4>
-                <div class="map-image">
-                    <img src="${mapData.imageUrl}" 
-                         alt="${mapData.description}" 
-                         class="img-fluid"
-                         onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22>Image not available</text></svg>';">
+        const img = new Image();
+        img.onload = () => {
+            this.mapContainer.innerHTML = `
+                <div class="map-content">
+                    <h4>${mapData.title}</h4>
+                    <div class="map-image">
+                        <img src="${mapData.imageUrl}" 
+                             alt="${mapData.description}" 
+                             class="img-fluid">
+                    </div>
+                    <p class="text-muted mt-2">${mapData.description}</p>
                 </div>
-                <p class="text-muted mt-2">${mapData.description}</p>
-            </div>
-        `;
+            `;
+        };
+        img.onerror = () => {
+            this.mapContainer.innerHTML = `
+                <div class="alert alert-warning">
+                    Image not available for ${mapData.title}
+                </div>
+            `;
+        };
+        img.src = mapData.imageUrl;
     }
 }
 

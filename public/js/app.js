@@ -3,6 +3,12 @@ class TodoApp {
         this.todos = [];
         this.projects = [];
         this.currentProjectId = null;
+        this.currentView = 'list';
+        
+        // Theme toggle
+        this.themeToggle = document.getElementById('theme-toggle');
+        this.viewModeSelect = document.getElementById('view-mode');
+        this.searchInput = document.getElementById('search-input');
 
         // Form elements
         this.todoForm = document.getElementById('todo-form');
@@ -25,6 +31,24 @@ class TodoApp {
     }
 
     bindEvents() {
+        // Theme toggle
+        this.themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute('data-bs-theme', 
+                document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark');
+        });
+
+        // View mode
+        this.viewModeSelect.addEventListener('change', (e) => {
+            this.currentView = e.target.value;
+            this.render();
+        });
+
+        // Search
+        this.searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            this.filterTodos(searchTerm);
+        });
+
         this.todoForm.addEventListener('submit', (e) => {
             e.preventDefault();
             this.addTodo();
@@ -365,9 +389,17 @@ class TodoApp {
         container.appendChild(clone);
     }
 
-    render() {
+    filterTodos(searchTerm) {
+        const filtered = this.todos.filter(todo => 
+            todo.text.toLowerCase().includes(searchTerm));
+        this.render(filtered);
+    }
+
+    render(todosToRender = this.todos) {
         this.todoList.innerHTML = '';
-        this.todos.forEach(todo => {
+        this.todoList.className = `list-group list-group-flush ${this.currentView}-view`;
+        
+        todosToRender.forEach(todo => {
             this.renderTodo(todo, this.todoList);
         });
         this.updateTasksCount();

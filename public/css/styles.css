@@ -253,3 +253,19 @@
         padding-left: 1rem;
     }
 }
+/* View Modes */
+.kanban-view {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.kanban-view .list-group-item {
+    width: 300px;
+    margin-bottom: 1rem;
+}
+
+.calendar-view .list-group-item {
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--bs-primary);
+}
