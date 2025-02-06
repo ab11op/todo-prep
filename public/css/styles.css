@@ -114,6 +114,7 @@
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }
 
 #map-container {
@@ -147,16 +148,32 @@
 
 .map-info h4 {
     color: var(--bs-primary);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--bs-primary);
+    padding-bottom: 0.5rem;
+}
+
+.map-info h5 {
     margin-bottom: 1rem;
 }
 
 .map-info .list-group-item {
     background: transparent;
     border-color: var(--bs-border-color);
+    padding: 1rem;
 }
 
 .map-info ul:not(.list-group) {
     padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.map-info ul:not(.list-group) li {
+    margin-bottom: 0.5rem;
+}
+
+.map-info ul:not(.list-group) ul {
+    margin-top: 0.5rem;
 }
 
 .map-image {
@@ -164,12 +181,8 @@
     border-radius: 4px;
     overflow: hidden;
     background-color: var(--bs-dark);
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.map-image:hover {
-    transform: scale(1.02);
+    padding: 1rem;
+    text-align: center;
 }
 
 .map-image img {
@@ -177,10 +190,13 @@
     height: auto;
     display: block;
     margin: 0 auto;
+    background-color: var(--bs-secondary-bg);
+    border-radius: 4px;
 }
 
 .map-categories .btn {
     font-size: 0.9rem;
+    padding: 0.5rem 1rem;
 }
 
 .map-categories .btn.active {
@@ -199,6 +215,11 @@
 
 #map-modal .modal-header {
     border-bottom-color: var(--bs-border-color);
+    padding: 1rem 1.5rem;
+}
+
+#map-modal .modal-body {
+    padding: 1.5rem;
 }
 
 #map-modal .modal-footer {
@@ -209,4 +230,19 @@
 .spinner-border {
     width: 3rem;
     height: 3rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .map-categories {
+        flex-direction: column;
+    }
+
+    .map-categories .btn {
+        width: 100%;
+    }
+
+    .map-info ul:not(.list-group) {
+        padding-left: 1rem;
+    }
 }

@@ -29,12 +29,11 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="https://i.imgur.com/JKqMGFE.png" 
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
                                  alt="Rivers of India Map" 
-                                 class="img-fluid"
-                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                                 class="img-fluid">
                             <div class="text-center text-muted mt-2">
-                                <small>Click to enlarge map</small>
+                                <small>Map temporarily unavailable</small>
                             </div>
                         </div>
                     </div>
@@ -49,29 +48,29 @@ class UPSCMaps {
                             <li class="list-group-item">
                                 <h5 class="text-primary">Himalayas</h5>
                                 <ul>
-                                    <li>Greater Himalayas (Himadri)</li>
-                                    <li>Lesser Himalayas (Himachal)</li>
-                                    <li>Outer Himalayas (Siwaliks)</li>
+                                    <li>Greater Himalayas (Himadri): Average height 6,000m</li>
+                                    <li>Lesser Himalayas (Himachal): Average height 3,000m</li>
+                                    <li>Outer Himalayas (Siwaliks): Average height 900-1,200m</li>
+                                    <li>Major Peaks: Mount Everest, K2, Kanchenjunga</li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
-                                <h5 class="text-success">Other Ranges</h5>
+                                <h5 class="text-success">Other Major Ranges</h5>
                                 <ul>
-                                    <li>Western Ghats (Sahyadri)</li>
-                                    <li>Eastern Ghats</li>
-                                    <li>Aravalli Range</li>
-                                    <li>Vindhya Range</li>
-                                    <li>Satpura Range</li>
+                                    <li>Western Ghats (Sahyadri): Runs parallel to west coast, average height 1,200m</li>
+                                    <li>Eastern Ghats: Discontinuous range along east coast</li>
+                                    <li>Aravalli Range: Oldest mountain range in India</li>
+                                    <li>Vindhya Range: Natural boundary between North and South India</li>
+                                    <li>Satpura Range: Parallel to Vindhya Range</li>
                                 </ul>
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="https://i.imgur.com/8yR9CpN.png" 
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
                                  alt="Mountain Ranges of India Map" 
-                                 class="img-fluid"
-                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                                 class="img-fluid">
                             <div class="text-center text-muted mt-2">
-                                <small>Click to enlarge map</small>
+                                <small>Map temporarily unavailable</small>
                             </div>
                         </div>
                     </div>
@@ -85,38 +84,51 @@ class UPSCMaps {
                         <div class="row">
                             <div class="col-md-6">
                                 <h5 class="text-primary">States (28)</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Andhra Pradesh</li>
-                                    <li class="list-group-item">Arunachal Pradesh</li>
-                                    <li class="list-group-item">Assam</li>
-                                    <li class="list-group-item">Bihar</li>
-                                    <li class="list-group-item">Chhattisgarh</li>
-                                    <li class="list-group-item">Goa</li>
-                                    <li class="list-group-item">Gujarat</li>
-                                    <!-- More states listed here -->
-                                </ul>
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item">
+                                        <strong>North India:</strong>
+                                        <ul>
+                                            <li>Himachal Pradesh: Capital - Shimla</li>
+                                            <li>Punjab: Capital - Chandigarh</li>
+                                            <li>Uttarakhand: Capital - Dehradun</li>
+                                            <li>Haryana: Capital - Chandigarh</li>
+                                        </ul>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <strong>South India:</strong>
+                                        <ul>
+                                            <li>Kerala: Capital - Thiruvananthapuram</li>
+                                            <li>Tamil Nadu: Capital - Chennai</li>
+                                            <li>Karnataka: Capital - Bengaluru</li>
+                                            <li>Andhra Pradesh: Capital - Amaravati</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-info">Union Territories (8)</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Andaman and Nicobar Islands</li>
-                                    <li class="list-group-item">Chandigarh</li>
-                                    <li class="list-group-item">Dadra and Nagar Haveli and Daman and Diu</li>
-                                    <li class="list-group-item">Delhi</li>
-                                    <li class="list-group-item">Jammu and Kashmir</li>
-                                    <li class="list-group-item">Ladakh</li>
-                                    <li class="list-group-item">Lakshadweep</li>
-                                    <li class="list-group-item">Puducherry</li>
-                                </ul>
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item">
+                                        <ul>
+                                            <li>Delhi: National Capital Territory</li>
+                                            <li>Puducherry: Former French Colony</li>
+                                            <li>Ladakh: Newest UT (2019)</li>
+                                            <li>Jammu & Kashmir</li>
+                                            <li>Andaman & Nicobar Islands</li>
+                                            <li>Lakshadweep</li>
+                                            <li>Chandigarh</li>
+                                            <li>Dadra and Nagar Haveli and Daman and Diu</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="map-image mt-3">
-                            <img src="https://i.imgur.com/YqtQYKG.png" 
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
                                  alt="States and UTs of India Map" 
-                                 class="img-fluid"
-                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                                 class="img-fluid">
                             <div class="text-center text-muted mt-2">
-                                <small>Click to enlarge map</small>
+                                <small>Map temporarily unavailable</small>
                             </div>
                         </div>
                     </div>
@@ -131,29 +143,56 @@ class UPSCMaps {
                             <li class="list-group-item">
                                 <h5 class="text-success">Major Crop Regions</h5>
                                 <ul>
-                                    <li>Rice: Eastern and Southern regions</li>
-                                    <li>Wheat: Northern Plains</li>
-                                    <li>Cotton: Maharashtra, Gujarat</li>
-                                    <li>Tea: Assam, West Bengal</li>
-                                    <li>Coffee: Karnataka, Kerala, Tamil Nadu</li>
+                                    <li>Northern Plains (Wheat Belt):
+                                        <ul>
+                                            <li>Major producers: Punjab, Haryana, UP</li>
+                                            <li>Crops: Wheat, Rice, Sugarcane</li>
+                                        </ul>
+                                    </li>
+                                    <li>Eastern Region (Rice Bowl):
+                                        <ul>
+                                            <li>Major producers: West Bengal, Bihar</li>
+                                            <li>Crops: Rice, Jute, Tea</li>
+                                        </ul>
+                                    </li>
+                                    <li>Western Region (Cotton Belt):
+                                        <ul>
+                                            <li>Major producers: Gujarat, Maharashtra</li>
+                                            <li>Crops: Cotton, Groundnut, Oil seeds</li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="list-group-item">
                                 <h5 class="text-warning">Agricultural Seasons</h5>
                                 <ul>
-                                    <li>Kharif (July-October): Rice, Maize, Sorghum, Cotton, Groundnut</li>
-                                    <li>Rabi (October-March): Wheat, Barley, Peas, Gram</li>
-                                    <li>Zaid (March-July): Watermelon, Cucumber, Vegetables</li>
+                                    <li>Kharif (July-October): 
+                                        <ul>
+                                            <li>Crops: Rice, Maize, Sorghum, Cotton, Groundnut</li>
+                                            <li>Dependent on monsoon rains</li>
+                                        </ul>
+                                    </li>
+                                    <li>Rabi (October-March):
+                                        <ul>
+                                            <li>Crops: Wheat, Barley, Peas, Gram</li>
+                                            <li>Requires irrigation</li>
+                                        </ul>
+                                    </li>
+                                    <li>Zaid (March-July):
+                                        <ul>
+                                            <li>Crops: Watermelon, Cucumber, Vegetables</li>
+                                            <li>Short duration crops</li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="https://i.imgur.com/L2KQXU3.png" 
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
                                  alt="Agricultural Map of India" 
-                                 class="img-fluid"
-                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                                 class="img-fluid">
                             <div class="text-center text-muted mt-2">
-                                <small>Click to enlarge map</small>
+                                <small>Map temporarily unavailable</small>
                             </div>
                         </div>
                     </div>
@@ -183,13 +222,6 @@ class UPSCMaps {
             // Show default map (rivers)
             this.showMap('rivers');
             console.log('Map modal opened');
-        });
-
-        // Add click event to make images enlargeable
-        this.mapContainer.addEventListener('click', (e) => {
-            if (e.target.tagName === 'IMG') {
-                window.open(e.target.src, '_blank');
-            }
         });
     }
 
