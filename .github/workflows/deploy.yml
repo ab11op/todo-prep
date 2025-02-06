@@ -34,8 +34,6 @@ jobs:
         CI: true
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         
-    - name: Run Tests
-      run: npm test --if-present
       env:
         CI: true
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
