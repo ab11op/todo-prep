@@ -29,9 +29,13 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/River_systems_of_India.svg" 
+                            <img src="https://i.imgur.com/JKqMGFE.png" 
                                  alt="Rivers of India Map" 
-                                 class="img-fluid border rounded">
+                                 class="img-fluid"
+                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                            <div class="text-center text-muted mt-2">
+                                <small>Click to enlarge map</small>
+                            </div>
                         </div>
                     </div>
                 `
@@ -62,9 +66,13 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/India_physical_map.svg" 
+                            <img src="https://i.imgur.com/8yR9CpN.png" 
                                  alt="Mountain Ranges of India Map" 
-                                 class="img-fluid border rounded">
+                                 class="img-fluid"
+                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                            <div class="text-center text-muted mt-2">
+                                <small>Click to enlarge map</small>
+                            </div>
                         </div>
                     </div>
                 `
@@ -85,7 +93,7 @@ class UPSCMaps {
                                     <li class="list-group-item">Chhattisgarh</li>
                                     <li class="list-group-item">Goa</li>
                                     <li class="list-group-item">Gujarat</li>
-                                    <!-- Add more states as needed -->
+                                    <!-- More states listed here -->
                                 </ul>
                             </div>
                             <div class="col-md-6">
@@ -103,9 +111,13 @@ class UPSCMaps {
                             </div>
                         </div>
                         <div class="map-image mt-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/India_states_and_union_territories_map.svg" 
+                            <img src="https://i.imgur.com/YqtQYKG.png" 
                                  alt="States and UTs of India Map" 
-                                 class="img-fluid border rounded">
+                                 class="img-fluid"
+                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                            <div class="text-center text-muted mt-2">
+                                <small>Click to enlarge map</small>
+                            </div>
                         </div>
                     </div>
                 `
@@ -136,9 +148,13 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/India_agriculture_map.svg" 
+                            <img src="https://i.imgur.com/L2KQXU3.png" 
                                  alt="Agricultural Map of India" 
-                                 class="img-fluid border rounded">
+                                 class="img-fluid"
+                                 onerror="this.onerror=null; this.src='https://i.imgur.com/zKPD6E8.png';">
+                            <div class="text-center text-muted mt-2">
+                                <small>Click to enlarge map</small>
+                            </div>
                         </div>
                     </div>
                 `
@@ -166,9 +182,14 @@ class UPSCMaps {
             this.mapModal.show();
             // Show default map (rivers)
             this.showMap('rivers');
-
-            // Log for debugging
             console.log('Map modal opened');
+        });
+
+        // Add click event to make images enlargeable
+        this.mapContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                window.open(e.target.src, '_blank');
+            }
         });
     }
 
@@ -179,13 +200,18 @@ class UPSCMaps {
             return;
         }
 
-        console.log('Showing map:', type); // Debug log
-        this.mapContainer.innerHTML = mapData.content;
+        // Show loading state
+        this.mapContainer.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary"></div></div>';
+
+        // Set the content after a brief delay to ensure modal transition is complete
+        setTimeout(() => {
+            this.mapContainer.innerHTML = mapData.content;
+        }, 100);
     }
 }
 
 // Initialize maps when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Initializing UPSC Maps'); // Debug log
+    console.log('Initializing UPSC Maps');
     new UPSCMaps();
 });
