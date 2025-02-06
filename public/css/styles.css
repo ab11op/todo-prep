@@ -183,15 +183,22 @@
     background-color: var(--bs-dark);
     padding: 1rem;
     text-align: center;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .map-image img {
     max-width: 100%;
+    max-height: 500px;
+    width: auto;
     height: auto;
     display: block;
     margin: 0 auto;
     background-color: var(--bs-secondary-bg);
     border-radius: 4px;
+    object-fit: contain;
 }
 
 .map-categories .btn {
