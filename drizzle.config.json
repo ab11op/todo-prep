@@ -1,0 +1,9 @@
+{
+  "out": "./drizzle",
+  "schema": "./db/schema.js",
+  "dialect": "postgresql",
+  "driver": "postgresql",
+  "dbCredentials": {
+    "connectionString": "$DATABASE_URL"
+  }
+}

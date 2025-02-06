@@ -1,6 +1,6 @@
 class TodoApp {
     constructor() {
-        this.todos = JSON.parse(localStorage.getItem('todos')) || [];
+        this.todos = [];
         this.todoForm = document.getElementById('todo-form');
         this.todoInput = document.getElementById('todo-input');
         this.todoList = document.getElementById('todo-list');
@@ -9,7 +9,7 @@ class TodoApp {
         this.taskTemplate = document.getElementById('task-template');
 
         this.bindEvents();
-        this.render();
+        this.fetchTodos();
     }
 
     bindEvents() {
@@ -27,7 +27,7 @@ class TodoApp {
             if (!li) return;
 
             const todoId = li.dataset.id;
-            
+
             if (e.target.classList.contains('delete-task')) {
                 this.deleteTodo(todoId);
             } else if (e.target.classList.contains('edit-task') || e.target.closest('.edit-task')) {
@@ -38,9 +38,14 @@ class TodoApp {
         });
     }
 
-    saveTodos() {
-        localStorage.setItem('todos', JSON.stringify(this.todos));
-        this.updateTasksCount();
+    async fetchTodos() {
+        try {
+            const response = await fetch('/api/todos');
+            this.todos = await response.json();
+            this.render();
+        } catch (error) {
+            console.error('Error fetching todos:', error);
+        }
     }
 
     updateTasksCount() {
@@ -48,55 +53,96 @@ class TodoApp {
         this.tasksCount.textContent = `${remainingTasks} item${remainingTasks !== 1 ? 's' : ''} left`;
     }
 
-    addTodo() {
+    async addTodo() {
         const text = this.todoInput.value.trim();
         if (!text) return;
 
-        const todo = {
-            id: Date.now().toString(),
-            text,
-            completed: false
-        };
-
-        this.todos.push(todo);
-        this.todoInput.value = '';
-        this.saveTodos();
-        this.render();
-    }
-
-    deleteTodo(id) {
-        this.todos = this.todos.filter(todo => todo.id !== id);
-        this.saveTodos();
-        this.render();
-    }
-
-    toggleTodo(id) {
-        const todo = this.todos.find(todo => todo.id === id);
-        if (todo) {
-            todo.completed = !todo.completed;
-            this.saveTodos();
+        try {
+            const response = await fetch('/api/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text }),
+            });
+            const newTodo = await response.json();
+            this.todos.push(newTodo);
+            this.todoInput.value = '';
             this.render();
+        } catch (error) {
+            console.error('Error adding todo:', error);
+        }
+    }
+
+    async deleteTodo(id) {
+        try {
+            await fetch(`/api/todos/${id}`, {
+                method: 'DELETE',
+            });
+            this.todos = this.todos.filter(todo => todo.id !== parseInt(id));
+            this.render();
+        } catch (error) {
+            console.error('Error deleting todo:', error);
+        }
+    }
+
+    async toggleTodo(id) {
+        const todo = this.todos.find(todo => todo.id === parseInt(id));
+        if (todo) {
+            try {
+                const response = await fetch(`/api/todos/${id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: todo.text,
+                        completed: !todo.completed,
+                    }),
+                });
+                const updatedTodo = await response.json();
+                this.todos = this.todos.map(t => t.id === updatedTodo.id ? updatedTodo : t);
+                this.render();
+            } catch (error) {
+                console.error('Error toggling todo:', error);
+            }
         }
     }
 
     editTodo(id) {
         const li = this.todoList.querySelector(`li[data-id="${id}"]`);
         const taskText = li.querySelector('.task-text');
-        const todo = this.todos.find(todo => todo.id === id);
-        
+        const todo = this.todos.find(todo => todo.id === parseInt(id));
+
         const input = document.createElement('input');
         input.type = 'text';
         input.value = todo.text;
         input.className = 'task-edit-input';
-        
+
         taskText.replaceWith(input);
         input.focus();
 
-        const saveEdit = () => {
+        const saveEdit = async () => {
             const newText = input.value.trim();
-            if (newText) {
-                todo.text = newText;
-                this.saveTodos();
+            if (newText && newText !== todo.text) {
+                try {
+                    const response = await fetch(`/api/todos/${id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            text: newText,
+                            completed: todo.completed,
+                        }),
+                    });
+                    const updatedTodo = await response.json();
+                    this.todos = this.todos.map(t => t.id === updatedTodo.id ? updatedTodo : t);
+                    this.render();
+                } catch (error) {
+                    console.error('Error updating todo:', error);
+                }
+            } else {
                 this.render();
             }
         };
@@ -111,32 +157,41 @@ class TodoApp {
         });
     }
 
-    clearCompleted() {
-        this.todos = this.todos.filter(todo => !todo.completed);
-        this.saveTodos();
-        this.render();
+    async clearCompleted() {
+        const completedTodos = this.todos.filter(todo => todo.completed);
+        try {
+            await Promise.all(
+                completedTodos.map(todo =>
+                    fetch(`/api/todos/${todo.id}`, { method: 'DELETE' })
+                )
+            );
+            this.todos = this.todos.filter(todo => !todo.completed);
+            this.render();
+        } catch (error) {
+            console.error('Error clearing completed todos:', error);
+        }
     }
 
     render() {
         this.todoList.innerHTML = '';
-        
+
         this.todos.forEach(todo => {
             const clone = this.taskTemplate.content.cloneNode(true);
             const li = clone.querySelector('li');
             const checkbox = clone.querySelector('.task-check');
             const taskText = clone.querySelector('.task-text');
-            
+
             li.dataset.id = todo.id;
             checkbox.checked = todo.completed;
             taskText.textContent = todo.text;
-            
+
             if (todo.completed) {
                 taskText.classList.add('completed');
             }
-            
+
             this.todoList.appendChild(clone);
         });
-        
+
         this.updateTasksCount();
     }
 }
