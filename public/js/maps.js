@@ -8,47 +8,47 @@ class UPSCMaps {
         this.maps = {
             airandwater: {
                 title: 'Air and Water',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Air_and_Water.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Air%20and%20Water.jpg',
                 description: 'Air and Water Resources of India'
             },
             airports: {
                 title: 'Airports',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Airports.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Airport%20.jpg',
                 description: 'Major Airports of India'
             },
             crops: {
                 title: 'Crops',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Crops.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Crop.png',
                 description: 'Major Crops of India'
             },
             heritage: {
                 title: 'Heritage Sites',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Heritage_Sites.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Heritage%20Sites.jpg',
                 description: 'Heritage Sites of India'
             },
             hillstations: {
                 title: 'Hill Stations',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Hill_Stations.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Hill%20Station.jpg',
                 description: 'Hill Stations of India'
             },
             flag: {
                 title: 'Indian Flag',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Indian_Flag.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Air%20and%20Water.jpg',
                 description: 'National Flag of India'
             },
             peaks: {
                 title: 'Main Peaks',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Main_Peaks.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Main%20Peaks.png',
                 description: 'Major Mountain Peaks of India'
             },
             monsoon: {
                 title: 'Monsoon',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Monsoon.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Monsoon.jpeg',
                 description: 'Monsoon Patterns in India'
             },
             passes: {
                 title: 'Mountain Passes',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountain_Passes.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountain%20Passes.png',
                 description: 'Important Mountain Passes of India'
             },
             ranges: {
@@ -58,17 +58,17 @@ class UPSCMaps {
             },
             hazards: {
                 title: 'Natural Hazards',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Natural_Hazards.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Natural%20Hazard%20Map.jpg',
                 description: 'Natural Hazards in India'
             },
             vegetation: {
                 title: 'Natural Vegetation',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Natural_Vegetation.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Natural%20Vegetation.jpg',
                 description: 'Natural Vegetation of India'
             },
             resources: {
                 title: 'Natural Resources',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Natural_Resources.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Natural%20resources.jpg',
                 description: 'Natural Resources of India'
             },
             political: {
@@ -93,23 +93,23 @@ class UPSCMaps {
             },
             roadway: {
                 title: 'Roadway Network',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Roadway.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Roadway.png',
                 description: 'Roadway Network of India'
             },
             soil: {
                 title: 'Soil Types',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Soil.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Soil_map.jpg',
                 description: 'Soil Types of India'
             },
             temperature: {
                 title: 'Temperature',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Temperature.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Temperature_India.png',
                 description: 'Temperature Distribution in India'
             },
-            topography: {
-                title: 'Topography',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Topography.jpg',
-                description: 'Topographical Features of India'
+            tourist_places: {
+                title: 'Tourist Places',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Tourist%20places.jpg',
+                description: 'Tourist Places of India'
             },
             wind: {
                 title: 'Wind Pattern',
