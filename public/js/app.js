@@ -33,13 +33,41 @@ class TodoApp {
     bindEvents() {
         // Theme toggle
         this.themeToggle.addEventListener('click', () => {
-            document.documentElement.setAttribute('data-bs-theme', 
-                document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark');
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            this.themeToggle.innerHTML = `<i class="bi bi-${newTheme === 'dark' ? 'moon-stars' : 'sun'}"></i>`;
         });
+        
+        // Set initial theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        this.themeToggle.innerHTML = `<i class="bi bi-${savedTheme === 'dark' ? 'moon-stars' : 'sun'}"></i>`;
 
         // View mode
         this.viewModeSelect.addEventListener('change', (e) => {
             this.currentView = e.target.value;
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            if (e.key === 'n' || e.key === 'N') {
+                e.preventDefault();
+                this.todoInput.focus();
+            } else if (e.key === 'p' || e.key === 'P') {
+                e.preventDefault();
+                this.newProjectModal.show();
+            } else if (e.key === '/') {
+                e.preventDefault();
+                this.searchInput.focus();
+            } else if (e.key === '?') {
+                // Show shortcuts modal if you have one
+                alert('Keyboard Shortcuts:\nN: New Task\nP: New Project\n/: Search\n?: Show Shortcuts');
+            }
+        });
+
             this.render();
         });
 
