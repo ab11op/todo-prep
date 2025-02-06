@@ -13,7 +13,7 @@ class UPSCMaps {
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountain_map.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountain_Ranges.jpg',
                 description: 'Mountain Ranges of India'
             },
             states: {
@@ -28,7 +28,7 @@ class UPSCMaps {
             },
             climate: {
                 title: 'Climate Regions',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Climate.png',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Climate.jpeg',
                 description: 'Climate Regions of India'
             },
             rainfall: {
@@ -40,6 +40,11 @@ class UPSCMaps {
                 title: 'Mineral Distribution',
                 imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Minerals.png',
                 description: 'Distribution of Minerals in India'
+            },
+            air_and_water: {
+                title: 'Air and Water',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Air%20and%20Water.jpg',
+                description: 'Air and Water in India'
             }
         };
 
