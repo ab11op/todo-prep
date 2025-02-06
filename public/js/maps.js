@@ -8,12 +8,12 @@ class UPSCMaps {
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Rivers.png',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/River_map.jpg',
                 description: 'Major Rivers of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Mountains.png',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountain_map.jpg',
                 description: 'Mountain Ranges of India'
             },
             states: {
