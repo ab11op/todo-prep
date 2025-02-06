@@ -29,7 +29,7 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/India_rivers_map.png" 
                                  alt="Rivers of India Map" 
                                  class="img-fluid">
                             <div class="text-center text-muted mt-2">
@@ -66,7 +66,7 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/India_geographic_map.png" 
                                  alt="Mountain Ranges of India Map" 
                                  class="img-fluid">
                             <div class="text-center text-muted mt-2">
@@ -124,7 +124,7 @@ class UPSCMaps {
                             </div>
                         </div>
                         <div class="map-image mt-3">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/India_states_and_union_territories_map.png" 
                                  alt="States and UTs of India Map" 
                                  class="img-fluid">
                             <div class="text-center text-muted mt-2">
@@ -188,7 +188,7 @@ class UPSCMaps {
                             </li>
                         </ul>
                         <div class="map-image mt-3">
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" 
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/India_agriculture_map.png" 
                                  alt="Agricultural Map of India" 
                                  class="img-fluid">
                             <div class="text-center text-muted mt-2">
