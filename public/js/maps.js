@@ -8,22 +8,22 @@ class UPSCMaps {
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/16/River_system_of_India.png',
+                imageUrl: 'https://i.ibb.co/N9vK3Gz/rivers-india.jpg',
                 description: 'Major Rivers of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/India_physical_map.png',
+                imageUrl: 'https://i.ibb.co/wQp0L3y/mountains-india.jpg',
                 description: 'Mountain Ranges of India'
             },
             states: {
                 title: 'States & Union Territories',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/5/55/India_states_and_union_territories_map.png',
+                imageUrl: 'https://i.ibb.co/wMB6tY4/states-india.jpg',
                 description: 'States and Union Territories of India'
             },
             agriculture: {
                 title: 'Agricultural Regions',
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/96/India_agricultural_areas.png',
+                imageUrl: 'https://i.ibb.co/YX89pGF/agriculture-india.jpg',
                 description: 'Agricultural Regions of India'
             }
         };
