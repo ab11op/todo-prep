@@ -8,23 +8,38 @@ class UPSCMaps {
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://raw.githubusercontent.com/craigdsouza/water_resources_india/master/images/river-basins-and-command-areas.PNG',
-                description: 'Major River Basins and Command Areas of India'
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Rivers.jpg',
+                description: 'Major Rivers of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://i.ibb.co/VSQ5m0h/mountains.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountains.jpg',
                 description: 'Mountain Ranges of India'
             },
             states: {
                 title: 'States & Union Territories',
-                imageUrl: 'https://i.ibb.co/9HKpXZM/states.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/States.jpg',
                 description: 'States and Union Territories of India'
             },
             agriculture: {
                 title: 'Agricultural Regions',
-                imageUrl: 'https://i.ibb.co/QKmg43B/agriculture.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Agriculture.jpg',
                 description: 'Agricultural Regions of India'
+            },
+            climate: {
+                title: 'Climate Regions',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Climate.jpg',
+                description: 'Climate Regions of India'
+            },
+            rainfall: {
+                title: 'Rainfall Distribution',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Rainfall.jpg',
+                description: 'Rainfall Distribution across India'
+            },
+            minerals: {
+                title: 'Mineral Distribution',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Minerals.jpg',
+                description: 'Distribution of Minerals in India'
             }
         };
 
