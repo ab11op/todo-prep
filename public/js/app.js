@@ -1,6 +1,10 @@
 class TodoApp {
     constructor() {
         this.todos = [];
+        this.projects = [];
+        this.currentProjectId = null;
+
+        // Form elements
         this.todoForm = document.getElementById('todo-form');
         this.todoInput = document.getElementById('todo-input');
         this.todoList = document.getElementById('todo-list');
@@ -8,8 +12,16 @@ class TodoApp {
         this.clearCompletedBtn = document.getElementById('clear-completed');
         this.taskTemplate = document.getElementById('task-template');
 
+        // Project elements
+        this.projectSelect = document.getElementById('project-select');
+        this.newProjectBtn = document.getElementById('new-project-btn');
+        this.newProjectModal = new bootstrap.Modal(document.getElementById('new-project-modal'));
+        this.newProjectForm = document.getElementById('new-project-form');
+        this.projectNameInput = document.getElementById('project-name');
+        this.saveProjectBtn = document.getElementById('save-project-btn');
+
         this.bindEvents();
-        this.fetchTodos();
+        this.fetchProjects().then(() => this.fetchTodos());
     }
 
     bindEvents() {
@@ -36,15 +48,73 @@ class TodoApp {
                 this.toggleTodo(todoId);
             }
         });
+
+        this.projectSelect.addEventListener('change', () => {
+            this.currentProjectId = this.projectSelect.value || null;
+            this.fetchTodos();
+        });
+
+        this.newProjectBtn.addEventListener('click', () => {
+            this.newProjectModal.show();
+        });
+
+        this.saveProjectBtn.addEventListener('click', () => {
+            this.addProject();
+        });
+    }
+
+    async fetchProjects() {
+        try {
+            const response = await fetch('/api/projects');
+            this.projects = await response.json();
+            this.renderProjectSelect();
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+        }
     }
 
     async fetchTodos() {
         try {
-            const response = await fetch('/api/todos');
+            const url = this.currentProjectId 
+                ? `/api/todos?projectId=${this.currentProjectId}`
+                : '/api/todos';
+            const response = await fetch(url);
             this.todos = await response.json();
             this.render();
         } catch (error) {
             console.error('Error fetching todos:', error);
+        }
+    }
+
+    renderProjectSelect() {
+        this.projectSelect.innerHTML = '<option value="">All Projects</option>';
+        this.projects.forEach(project => {
+            const option = document.createElement('option');
+            option.value = project.id;
+            option.textContent = project.name;
+            this.projectSelect.appendChild(option);
+        });
+    }
+
+    async addProject() {
+        const name = this.projectNameInput.value.trim();
+        if (!name) return;
+
+        try {
+            const response = await fetch('/api/projects', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name }),
+            });
+            const newProject = await response.json();
+            this.projects.push(newProject);
+            this.renderProjectSelect();
+            this.projectNameInput.value = '';
+            this.newProjectModal.hide();
+        } catch (error) {
+            console.error('Error adding project:', error);
         }
     }
 
@@ -63,7 +133,10 @@ class TodoApp {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text }),
+                body: JSON.stringify({
+                    text,
+                    projectId: this.currentProjectId
+                }),
             });
             const newTodo = await response.json();
             this.todos.push(newTodo);
@@ -98,6 +171,7 @@ class TodoApp {
                     body: JSON.stringify({
                         text: todo.text,
                         completed: !todo.completed,
+                        projectId: todo.projectId
                     }),
                 });
                 const updatedTodo = await response.json();
@@ -134,6 +208,7 @@ class TodoApp {
                         body: JSON.stringify({
                             text: newText,
                             completed: todo.completed,
+                            projectId: todo.projectId
                         }),
                     });
                     const updatedTodo = await response.json();

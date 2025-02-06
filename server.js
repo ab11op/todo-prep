@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const db = require('./db');
-const { todos } = require('./db/schema');
+const { todos, projects } = require('./db/schema');
 const { eq } = require('drizzle-orm');
 
 const app = express();
@@ -11,10 +11,39 @@ app.use(express.json());
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-// API Endpoints
+// Projects API Endpoints
+app.get('/api/projects', async (req, res) => {
+    try {
+        const allProjects = await db.select().from(projects).orderBy(projects.createdAt);
+        res.json(allProjects);
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        res.status(500).json({ error: 'Failed to fetch projects' });
+    }
+});
+
+app.post('/api/projects', async (req, res) => {
+    try {
+        const { name } = req.body;
+        const [newProject] = await db.insert(projects).values({ name }).returning();
+        res.status(201).json(newProject);
+    } catch (error) {
+        console.error('Error creating project:', error);
+        res.status(500).json({ error: 'Failed to create project' });
+    }
+});
+
+// Todos API Endpoints
 app.get('/api/todos', async (req, res) => {
     try {
-        const allTodos = await db.select().from(todos).orderBy(todos.createdAt);
+        const { projectId } = req.query;
+        let query = db.select().from(todos);
+
+        if (projectId) {
+            query = query.where(eq(todos.projectId, parseInt(projectId)));
+        }
+
+        const allTodos = await query.orderBy(todos.createdAt);
         res.json(allTodos);
     } catch (error) {
         console.error('Error fetching todos:', error);
@@ -24,8 +53,10 @@ app.get('/api/todos', async (req, res) => {
 
 app.post('/api/todos', async (req, res) => {
     try {
-        const { text } = req.body;
-        const [newTodo] = await db.insert(todos).values({ text }).returning();
+        const { text, projectId } = req.body;
+        const [newTodo] = await db.insert(todos)
+            .values({ text, projectId: projectId || null })
+            .returning();
         res.status(201).json(newTodo);
     } catch (error) {
         console.error('Error creating todo:', error);
@@ -36,10 +67,10 @@ app.post('/api/todos', async (req, res) => {
 app.patch('/api/todos/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { text, completed } = req.body;
+        const { text, completed, projectId } = req.body;
         const [updatedTodo] = await db
             .update(todos)
-            .set({ text, completed })
+            .set({ text, completed, projectId })
             .where(eq(todos.id, parseInt(id)))
             .returning();
         res.json(updatedTodo);
