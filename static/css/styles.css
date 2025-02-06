@@ -1,0 +1,33 @@
+.task-text.completed {
+    text-decoration: line-through;
+    color: var(--bs-secondary);
+}
+
+.task-edit-input {
+    background: transparent;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 4px;
+    color: var(--bs-body-color);
+    padding: 0.25rem 0.5rem;
+    flex-grow: 1;
+}
+
+.list-group-item {
+    background-color: transparent;
+}
+
+.task-actions {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.list-group-item:hover .task-actions {
+    visibility: visible;
+    opacity: 1;
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+}
