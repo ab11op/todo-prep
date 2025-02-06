@@ -8,22 +8,22 @@ class UPSCMaps {
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://i.ibb.co/N9vK3Gz/rivers-india.jpg',
+                imageUrl: 'https://i.postimg.cc/VkQ1q6Kj/rivers-india.jpg',
                 description: 'Major Rivers of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://i.ibb.co/wQp0L3y/mountains-india.jpg',
+                imageUrl: 'https://i.postimg.cc/NFhZkDL8/mountains-india.jpg',
                 description: 'Mountain Ranges of India'
             },
             states: {
                 title: 'States & Union Territories',
-                imageUrl: 'https://i.ibb.co/wMB6tY4/states-india.jpg',
+                imageUrl: 'https://i.postimg.cc/qRbQyVm8/states-india.jpg',
                 description: 'States and Union Territories of India'
             },
             agriculture: {
                 title: 'Agricultural Regions',
-                imageUrl: 'https://i.ibb.co/YX89pGF/agriculture-india.jpg',
+                imageUrl: 'https://i.postimg.cc/8c7X3Lpw/agriculture-india.jpg',
                 description: 'Agricultural Regions of India'
             }
         };
@@ -52,6 +52,15 @@ class UPSCMaps {
         const mapData = this.maps[type];
         if (!mapData) return;
 
+        // Show loading state
+        this.mapContainer.innerHTML = `
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        `;
+
         const img = new Image();
         img.onload = () => {
             this.mapContainer.innerHTML = `
@@ -69,7 +78,8 @@ class UPSCMaps {
         img.onerror = () => {
             this.mapContainer.innerHTML = `
                 <div class="alert alert-warning">
-                    Image not available for ${mapData.title}
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Unable to load image for ${mapData.title}. Please try again later.
                 </div>
             `;
         };
