@@ -8,37 +8,37 @@ class UPSCMaps {
         this.maps = {
             rivers: {
                 title: 'Rivers of India',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Rivers.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Rivers.png',
                 description: 'Major Rivers of India'
             },
             mountains: {
                 title: 'Mountain Ranges',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Mountains.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Mountains.png',
                 description: 'Mountain Ranges of India'
             },
             states: {
                 title: 'States & Union Territories',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/States.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/States.png',
                 description: 'States and Union Territories of India'
             },
             agriculture: {
                 title: 'Agricultural Regions',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Agriculture.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Agriculture.png',
                 description: 'Agricultural Regions of India'
             },
             climate: {
                 title: 'Climate Regions',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Climate.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Climate.png',
                 description: 'Climate Regions of India'
             },
             rainfall: {
                 title: 'Rainfall Distribution',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Rainfall.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Rainfall.png',
                 description: 'Rainfall Distribution across India'
             },
             minerals: {
                 title: 'Mineral Distribution',
-                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/Minerals.jpg',
+                imageUrl: 'https://raw.githubusercontent.com/Naren-7701/INDIA-MAP/main/MAPS/Minerals.png',
                 description: 'Distribution of Minerals in India'
             }
         };
