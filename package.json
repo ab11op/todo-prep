@@ -15,6 +15,9 @@
     "drizzle-kit": "^0.30.4",
     "drizzle-orm": "^0.39.2",
     "express": "^4.21.2",
-    "pg": "^8.13.1"
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.6",
+    "pg": "^8.13.1",
+    "showdown": "^2.1.0"
   }
 }

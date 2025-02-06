@@ -1,3 +1,10 @@
+:root {
+    --priority-high: var(--bs-warning);
+    --priority-urgent: var(--bs-danger);
+    --sidebar-width: 280px;
+}
+
+/* Task Styling */
 .task-text.completed {
     text-decoration: line-through;
     color: var(--bs-secondary);
@@ -14,8 +21,14 @@
 
 .list-group-item {
     background-color: transparent;
+    transition: background-color 0.2s ease;
 }
 
+.list-group-item:hover {
+    background-color: var(--bs-secondary-bg);
+}
+
+/* Task Actions */
 .task-actions {
     visibility: hidden;
     opacity: 0;
@@ -27,15 +40,102 @@
     opacity: 1;
 }
 
-.form-check-input:checked {
-    background-color: var(--bs-secondary);
-    border-color: var(--bs-secondary);
+/* Priority Badges */
+.priority-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
 }
 
+.priority-high {
+    background-color: var(--priority-high);
+    color: var(--bs-dark);
+}
+
+.priority-urgent {
+    background-color: var(--priority-urgent);
+    color: var(--bs-white);
+}
+
+/* Subtasks */
 .subtasks {
     margin-left: 1.5rem;
 }
 
 .subtasks .list-group-item {
     border-left: 2px solid var(--bs-border-color);
+}
+
+/* Markdown Content */
+.markdown-content {
+    background-color: var(--bs-secondary-bg);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.markdown-content pre {
+    background-color: var(--bs-dark);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.markdown-content code {
+    color: var(--bs-info);
+}
+
+/* Sidebar */
+.sidebar {
+    position: sticky;
+    top: 1rem;
+    padding: 1rem;
+    background-color: var(--bs-secondary-bg);
+    border-radius: 8px;
+}
+
+.keyboard-shortcuts {
+    font-size: 0.875rem;
+}
+
+.shortcut-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.shortcut-list kbd {
+    background-color: var(--bs-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+}
+
+/* Map Modal */
+.map-categories {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+#map-container {
+    min-height: 400px;
+    background-color: var(--bs-secondary-bg);
+}
+
+/* Search Box */
+.search-box {
+    max-width: 300px;
+}
+
+/* Form Controls */
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        margin-bottom: 1rem;
+    }
 }
