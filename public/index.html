@@ -62,17 +62,23 @@
 
     <!-- Task Item Template -->
     <template id="task-template">
-        <li class="list-group-item d-flex align-items-center gap-2">
-            <input type="checkbox" class="form-check-input task-check">
-            <span class="task-text flex-grow-1"></span>
-            <div class="task-actions">
-                <button class="btn btn-sm btn-outline-secondary edit-task">
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-sm btn-outline-danger delete-task">
-                    <i class="bi bi-trash"></i>
-                </button>
+        <li class="list-group-item">
+            <div class="d-flex align-items-center gap-2">
+                <input type="checkbox" class="form-check-input task-check">
+                <span class="task-text flex-grow-1"></span>
+                <div class="task-actions">
+                    <button class="btn btn-sm btn-outline-secondary add-subtask">
+                        <i class="bi bi-plus-square"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary edit-task">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger delete-task">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
             </div>
+            <ul class="subtasks list-group list-group-flush mt-2"></ul>
         </li>
     </template>
 

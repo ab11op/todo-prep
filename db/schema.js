@@ -11,7 +11,9 @@ const todos = pgTable('todos', {
   text: text('text').notNull(),
   completed: boolean('completed').notNull().default(false),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-  projectId: integer('project_id').references(() => projects.id)
+  projectId: integer('project_id').references(() => projects.id),
+  parentId: integer('parent_id').references(() => todos.id),
+  order: integer('order').notNull().default(0)
 });
 
 module.exports = {

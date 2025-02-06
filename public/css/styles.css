@@ -22,7 +22,7 @@
     transition: opacity 0.2s ease-in-out;
 }
 
-.list-group-item:hover .task-actions {
+.list-group-item:hover > .d-flex .task-actions {
     visibility: visible;
     opacity: 1;
 }
@@ -30,4 +30,12 @@
 .form-check-input:checked {
     background-color: var(--bs-secondary);
     border-color: var(--bs-secondary);
+}
+
+.subtasks {
+    margin-left: 1.5rem;
+}
+
+.subtasks .list-group-item {
+    border-left: 2px solid var(--bs-border-color);
 }

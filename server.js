@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const db = require('./db');
 const { todos, projects } = require('./db/schema');
-const { eq } = require('drizzle-orm');
+const { eq, isNull, and } = require('drizzle-orm');
 
 const app = express();
 
@@ -36,14 +36,20 @@ app.post('/api/projects', async (req, res) => {
 // Todos API Endpoints
 app.get('/api/todos', async (req, res) => {
     try {
-        const { projectId } = req.query;
+        const { projectId, parentId } = req.query;
         let query = db.select().from(todos);
 
         if (projectId) {
             query = query.where(eq(todos.projectId, parseInt(projectId)));
         }
 
-        const allTodos = await query.orderBy(todos.createdAt);
+        if (parentId === 'null') {
+            query = query.where(isNull(todos.parentId));
+        } else if (parentId) {
+            query = query.where(eq(todos.parentId, parseInt(parentId)));
+        }
+
+        const allTodos = await query.orderBy(todos.order);
         res.json(allTodos);
     } catch (error) {
         console.error('Error fetching todos:', error);
@@ -53,9 +59,31 @@ app.get('/api/todos', async (req, res) => {
 
 app.post('/api/todos', async (req, res) => {
     try {
-        const { text, projectId } = req.body;
+        const { text, projectId, parentId } = req.body;
+
+        // Get the maximum order for siblings
+        const siblingsQuery = db.select({ maxOrder: todos.order })
+            .from(todos)
+            .where(
+                parentId 
+                    ? eq(todos.parentId, parentId)
+                    : and(
+                        isNull(todos.parentId),
+                        projectId ? eq(todos.projectId, projectId) : isNull(todos.projectId)
+                    )
+            )
+            .orderBy(todos.order);
+
+        const siblings = await siblingsQuery;
+        const maxOrder = siblings.length > 0 ? Math.max(...siblings.map(s => s.maxOrder)) : -1;
+
         const [newTodo] = await db.insert(todos)
-            .values({ text, projectId: projectId || null })
+            .values({ 
+                text, 
+                projectId: projectId || null,
+                parentId: parentId || null,
+                order: maxOrder + 1
+            })
             .returning();
         res.status(201).json(newTodo);
     } catch (error) {
@@ -67,10 +95,10 @@ app.post('/api/todos', async (req, res) => {
 app.patch('/api/todos/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { text, completed, projectId } = req.body;
+        const { text, completed, projectId, parentId, order } = req.body;
         const [updatedTodo] = await db
             .update(todos)
-            .set({ text, completed, projectId })
+            .set({ text, completed, projectId, parentId, order })
             .where(eq(todos.id, parseInt(id)))
             .returning();
         res.json(updatedTodo);
@@ -83,6 +111,17 @@ app.patch('/api/todos/:id', async (req, res) => {
 app.delete('/api/todos/:id', async (req, res) => {
     try {
         const { id } = req.params;
+
+        // First, recursively delete all subtasks
+        const deleteSubtasks = async (parentId) => {
+            const subtasks = await db.select().from(todos).where(eq(todos.parentId, parentId));
+            for (const subtask of subtasks) {
+                await deleteSubtasks(subtask.id);
+                await db.delete(todos).where(eq(todos.id, subtask.id));
+            }
+        };
+
+        await deleteSubtasks(parseInt(id));
         await db.delete(todos).where(eq(todos.id, parseInt(id)));
         res.status(204).send();
     } catch (error) {

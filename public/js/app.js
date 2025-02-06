@@ -46,6 +46,8 @@ class TodoApp {
                 this.editTodo(todoId);
             } else if (e.target.classList.contains('task-check')) {
                 this.toggleTodo(todoId);
+            } else if (e.target.classList.contains('add-subtask') || e.target.closest('.add-subtask')) {
+                this.addSubtask(todoId);
             }
         });
 
@@ -76,13 +78,36 @@ class TodoApp {
     async fetchTodos() {
         try {
             const url = this.currentProjectId 
-                ? `/api/todos?projectId=${this.currentProjectId}`
-                : '/api/todos';
+                ? `/api/todos?projectId=${this.currentProjectId}&parentId=null`
+                : '/api/todos?parentId=null';
             const response = await fetch(url);
             this.todos = await response.json();
+
+            // Fetch subtasks for each todo
+            for (const todo of this.todos) {
+                todo.subtasks = await this.fetchSubtasks(todo.id);
+            }
+
             this.render();
         } catch (error) {
             console.error('Error fetching todos:', error);
+        }
+    }
+
+    async fetchSubtasks(parentId) {
+        try {
+            const response = await fetch(`/api/todos?parentId=${parentId}`);
+            const subtasks = await response.json();
+
+            // Recursively fetch subtasks
+            for (const subtask of subtasks) {
+                subtask.subtasks = await this.fetchSubtasks(subtask.id);
+            }
+
+            return subtasks;
+        } catch (error) {
+            console.error('Error fetching subtasks:', error);
+            return [];
         }
     }
 
@@ -119,12 +144,22 @@ class TodoApp {
     }
 
     updateTasksCount() {
-        const remainingTasks = this.todos.filter(todo => !todo.completed).length;
+        const countTodos = (todos) => {
+            let count = todos.filter(todo => !todo.completed).length;
+            for (const todo of todos) {
+                if (todo.subtasks) {
+                    count += countTodos(todo.subtasks);
+                }
+            }
+            return count;
+        };
+
+        const remainingTasks = countTodos(this.todos);
         this.tasksCount.textContent = `${remainingTasks} item${remainingTasks !== 1 ? 's' : ''} left`;
     }
 
-    async addTodo() {
-        const text = this.todoInput.value.trim();
+    async addTodo(parentId = null) {
+        const text = parentId ? prompt('Enter subtask text:') : this.todoInput.value.trim();
         if (!text) return;
 
         try {
@@ -135,16 +170,43 @@ class TodoApp {
                 },
                 body: JSON.stringify({
                     text,
-                    projectId: this.currentProjectId
+                    projectId: this.currentProjectId,
+                    parentId
                 }),
             });
             const newTodo = await response.json();
-            this.todos.push(newTodo);
-            this.todoInput.value = '';
+
+            if (parentId) {
+                const parent = this.findTodo(parentId);
+                if (parent) {
+                    if (!parent.subtasks) parent.subtasks = [];
+                    parent.subtasks.push(newTodo);
+                }
+            } else {
+                newTodo.subtasks = [];
+                this.todos.push(newTodo);
+                this.todoInput.value = '';
+            }
+
             this.render();
         } catch (error) {
             console.error('Error adding todo:', error);
         }
+    }
+
+    addSubtask(parentId) {
+        this.addTodo(parentId);
+    }
+
+    findTodo(id, todos = this.todos) {
+        for (const todo of todos) {
+            if (todo.id === parseInt(id)) return todo;
+            if (todo.subtasks) {
+                const found = this.findTodo(id, todo.subtasks);
+                if (found) return found;
+            }
+        }
+        return null;
     }
 
     async deleteTodo(id) {
@@ -152,7 +214,22 @@ class TodoApp {
             await fetch(`/api/todos/${id}`, {
                 method: 'DELETE',
             });
-            this.todos = this.todos.filter(todo => todo.id !== parseInt(id));
+
+            const removeTodo = (todos, id) => {
+                const index = todos.findIndex(t => t.id === parseInt(id));
+                if (index !== -1) {
+                    todos.splice(index, 1);
+                    return true;
+                }
+                for (const todo of todos) {
+                    if (todo.subtasks && removeTodo(todo.subtasks, id)) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            removeTodo(this.todos, id);
             this.render();
         } catch (error) {
             console.error('Error deleting todo:', error);
@@ -160,7 +237,7 @@ class TodoApp {
     }
 
     async toggleTodo(id) {
-        const todo = this.todos.find(todo => todo.id === parseInt(id));
+        const todo = this.findTodo(id);
         if (todo) {
             try {
                 const response = await fetch(`/api/todos/${id}`, {
@@ -171,11 +248,12 @@ class TodoApp {
                     body: JSON.stringify({
                         text: todo.text,
                         completed: !todo.completed,
-                        projectId: todo.projectId
+                        projectId: todo.projectId,
+                        parentId: todo.parentId
                     }),
                 });
                 const updatedTodo = await response.json();
-                this.todos = this.todos.map(t => t.id === updatedTodo.id ? updatedTodo : t);
+                Object.assign(todo, updatedTodo);
                 this.render();
             } catch (error) {
                 console.error('Error toggling todo:', error);
@@ -184,9 +262,11 @@ class TodoApp {
     }
 
     editTodo(id) {
+        const todo = this.findTodo(id);
+        if (!todo) return;
+
         const li = this.todoList.querySelector(`li[data-id="${id}"]`);
         const taskText = li.querySelector('.task-text');
-        const todo = this.todos.find(todo => todo.id === parseInt(id));
 
         const input = document.createElement('input');
         input.type = 'text';
@@ -208,11 +288,12 @@ class TodoApp {
                         body: JSON.stringify({
                             text: newText,
                             completed: todo.completed,
-                            projectId: todo.projectId
+                            projectId: todo.projectId,
+                            parentId: todo.parentId
                         }),
                     });
                     const updatedTodo = await response.json();
-                    this.todos = this.todos.map(t => t.id === updatedTodo.id ? updatedTodo : t);
+                    Object.assign(todo, updatedTodo);
                     this.render();
                 } catch (error) {
                     console.error('Error updating todo:', error);
@@ -233,40 +314,62 @@ class TodoApp {
     }
 
     async clearCompleted() {
-        const completedTodos = this.todos.filter(todo => todo.completed);
+        const findCompletedTodos = (todos) => {
+            let completed = [];
+            for (const todo of todos) {
+                if (todo.completed) {
+                    completed.push(todo.id);
+                }
+                if (todo.subtasks) {
+                    completed = completed.concat(findCompletedTodos(todo.subtasks));
+                }
+            }
+            return completed;
+        };
+
+        const completedTodoIds = findCompletedTodos(this.todos);
+
         try {
             await Promise.all(
-                completedTodos.map(todo =>
-                    fetch(`/api/todos/${todo.id}`, { method: 'DELETE' })
+                completedTodoIds.map(id =>
+                    fetch(`/api/todos/${id}`, { method: 'DELETE' })
                 )
             );
-            this.todos = this.todos.filter(todo => !todo.completed);
-            this.render();
+            await this.fetchTodos(); // Refresh the entire list
         } catch (error) {
             console.error('Error clearing completed todos:', error);
         }
     }
 
+    renderTodo(todo, container) {
+        const clone = this.taskTemplate.content.cloneNode(true);
+        const li = clone.querySelector('li');
+        const checkbox = clone.querySelector('.task-check');
+        const taskText = clone.querySelector('.task-text');
+        const subtasksList = clone.querySelector('.subtasks');
+
+        li.dataset.id = todo.id;
+        checkbox.checked = todo.completed;
+        taskText.textContent = todo.text;
+
+        if (todo.completed) {
+            taskText.classList.add('completed');
+        }
+
+        if (todo.subtasks && todo.subtasks.length > 0) {
+            todo.subtasks.forEach(subtask => {
+                this.renderTodo(subtask, subtasksList);
+            });
+        }
+
+        container.appendChild(clone);
+    }
+
     render() {
         this.todoList.innerHTML = '';
-
         this.todos.forEach(todo => {
-            const clone = this.taskTemplate.content.cloneNode(true);
-            const li = clone.querySelector('li');
-            const checkbox = clone.querySelector('.task-check');
-            const taskText = clone.querySelector('.task-text');
-
-            li.dataset.id = todo.id;
-            checkbox.checked = todo.completed;
-            taskText.textContent = todo.text;
-
-            if (todo.completed) {
-                taskText.classList.add('completed');
-            }
-
-            this.todoList.appendChild(clone);
+            this.renderTodo(todo, this.todoList);
         });
-
         this.updateTasksCount();
     }
 }
